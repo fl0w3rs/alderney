@@ -34,7 +34,7 @@ class TestController extends BaseController {
         $this->params['test_real'] = R::getRow('SELECT * FROM tests WHERE id = ?', [$test['test_id']]);
 
         $questions = explode(',', $this->params['test']['questions']);
-        $question_id = $questions[(int)$this->params['test']['current_question']];
+        $question_id = $questions[(int)$this->params['test']['current_question']] ?? null;
 
         $this->params['question'] = R::getRow('SELECT * FROM questions WHERE id = ?', [$question_id]);
 
@@ -96,6 +96,12 @@ class TestController extends BaseController {
             return false;
         }
 
+        // Claim the question atomically so parallel requests cannot answer it twice
+        $claimed = R::exec('UPDATE ut_results SET current_question = current_question + 1 WHERE id = ? AND status = 1 AND current_question = ?', [$test['id'], $test['current_question']]);
+        if($claimed == 0) {
+            return $this->renderTest($test['id']);
+        }
+
         $answer = R::xdispense('ut_answers');
         $answer->ut_result_id = $test['id'];
         $answer->question_id = $question['id'];
@@ -137,8 +143,6 @@ class TestController extends BaseController {
                 Test::updateCurrentTestStatus(3);
                 return $this->renderTest($test['id']);
             }
-        } else {
-            R::exec('UPDATE ut_results SET current_question = current_question + 1 WHERE id = ?', [$test['id']]);
         }
 
         return $this->renderTest($test['id']);
