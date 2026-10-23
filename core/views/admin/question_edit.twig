@@ -13,7 +13,7 @@
                     <small>Текст вопроса</small>
                     <div class="form-outline form-white">
                         <input type="text" name="question_text" id="question_text" class="form-control"
-                            value="{{question.text|raw}}" />
+                            value="{{question.text}}" />
                     </div>
 
                     <div class="mt-1">
@@ -29,7 +29,7 @@
                         <small>Варианты ответа</small>
                         {% for ans in question.options|split('|ALDERNEY|') %}
                         <div class="form-outline form-white mb-2">
-                            <input type="text" name="options[]" class="form-control" value="{{ans|raw}}" />
+                            <input type="text" name="options[]" class="form-control" value="{{ans}}" />
                         </div>
                         {% endfor %}
                     </div>
