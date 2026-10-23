@@ -4,12 +4,9 @@ namespace App\Facades;
 
 class Discord {
     public static function sendMessage($text, $fields) {
-        // echo "666";
-
         $timestamp = date("c", strtotime("now"));
 
         $json_data = json_encode([
-            // "content" => 'test',
             "embeds" => [
                 [
                     "description" => $text,
@@ -35,7 +32,6 @@ class Discord {
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
 
         $response = curl_exec( $ch );
-        // echo $response;
         curl_close( $ch );
     }
 }

@@ -26,7 +26,6 @@ class AdminController extends BaseController {
     public function renderTestEdit($params) {
         R::selectDatabase('main');
         $this->params['test'] = R::getRow('SELECT * FROM tests WHERE id = ?', [$params]);
-        // var_dump($this->params['test'])
 
         if(!isset($this->params['test']['id'])) {
             $errc = new ErrorController();
@@ -252,7 +251,6 @@ class AdminController extends BaseController {
         R::selectDatabase('main');
 
         $this->params['test'] = R::getRow('SELECT * FROM tests WHERE id = ?', [$params]);
-        // var_dump($this->params);
         if(!isset($this->params['test']['id'])) {
             $errc = new ErrorController();
             return $errc->renderError('INVTEST', 'Тест не существует');
@@ -265,7 +263,6 @@ class AdminController extends BaseController {
         R::selectDatabase('main');
 
         $this->params['question'] = R::getRow('SELECT * FROM questions WHERE id = ?', [$params]);
-        // var_dump($this->params);
         if(!isset($this->params['question']['id'])) {
             $errc = new ErrorController();
             return $errc->renderError('INVQSTN', 'Вопрос не существует');
@@ -304,15 +301,12 @@ class AdminController extends BaseController {
 
         foreach($_POST['options'] as $k => &$v) {
             if(empty($v)) { unset($_POST['options'][$k]); continue; }
-            // $v = htmlspecialchars($v);
         }
 
         if(($_POST['question_type'] == 1 || $_POST['question_type'] == 2) && count($_POST['options']) == 0) {
             $errc = new ErrorController();
             return $errc->renderError('VALIDERROR', 'Должен быть хотя бы один вариант');
         }
-
-        // $_POST['question_text'] = htmlspecialchars($_POST['question_text']);
 
         $qstn = R::load('questions', $params);
 
@@ -361,7 +355,6 @@ class AdminController extends BaseController {
 
         foreach($_POST['options'] as $k => &$v) {
             if(empty($v)) { unset($_POST['options'][$k]); continue; }
-            // $v = htmlspecialchars($v);
         }
 
         if(($_POST['question_type'] == 1 || $_POST['question_type'] == 2) && count($_POST['options']) == 0) {

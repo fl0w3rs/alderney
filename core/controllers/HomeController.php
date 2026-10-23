@@ -8,10 +8,6 @@ use App\Facades\Auth;
 use App\Facades\Test;
 
 class HomeController extends BaseController {
-    // public function __construct() {
-    //     parent::__construct();
-    // }
-
     public function renderHome() {
         $user_groups = Auth::getForumUserGroups();
 
@@ -26,8 +22,6 @@ class HomeController extends BaseController {
         }
 
         $this->params['is_admin'] = Auth::isAdmin();
-
-        // var_dump($this->params['tests']);
 
         return $this->render('home.twig');
     }

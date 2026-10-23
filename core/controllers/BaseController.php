@@ -13,16 +13,9 @@ class BaseController {
             'cache' => config['dev_mode'] ? false : config['base_dir'].'/cache/views'
         ]);
         
-        // if(config['dev_mode'] == true) {
-        //     $filter = new \Twig\TwigFilter('asset', function ($string) {
-        //         return config['base_link'] . $string . '?' . time();
-        //     });
-            
-        // } else {
             $filter = new \Twig\TwigFilter('asset', function ($string) {
                 return config['base_link'] . $string . '?' . config['asset_version'];
             });
-        // }
 
         $this->twig->addFilter($filter);
 

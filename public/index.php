@@ -3,18 +3,6 @@ require __DIR__ . '/../core/main.php';
 
 use App\Facades\Auth;
 
-// unlink(config['base_dir'] . '/cache/route.cache');
-
-// function clearDir($dir) {
-//     $files = array_diff(scandir($dir), array('.','..'));
-//     foreach ($files as $file) {
-//         (is_dir("$dir/$file")) ? clearDir("$dir/$file") : unlink("$dir/$file");
-//     }
-//     return rmdir($dir);
-// }
-
-// clearDir(config['base_dir'] . '/cache/views');
-
 $dispatcher = FastRoute\cachedDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', ['\App\Controllers\AuthController@renderLogin', []]);
     $r->addRoute('GET', '/home', ['\App\Controllers\HomeController@renderHome', ['auth']]);
@@ -39,7 +27,6 @@ $dispatcher = FastRoute\cachedDispatcher(function(FastRoute\RouteCollector $r) {
         $r->addRoute('POST', '/test/keepalive', ['\App\Controllers\TestController@apiKeepAlive', ['auth']]);
         $r->addRoute('GET', '/admin/result/{id:\d+}/retest', ['\App\Controllers\AdminController@doRetest', ['auth', 'adminORtrainer']]);
         $r->addRoute('POST', '/admin/answer/change', ['\App\Controllers\AdminController@doChangeAnswerIsValid', ['auth', 'adminORtrainer']]);
-        //
         $r->addRoute('GET', '/admin/test/{id:\d+}/delete', ['\App\Controllers\AdminController@doTestDelete', ['auth', 'admin']]);
         $r->addRoute('POST', '/admin/test/{id:\d+}/edit', ['\App\Controllers\AdminController@doTestEdit', ['auth', 'admin']]);
         $r->addRoute('POST', '/admin/test/create', ['\App\Controllers\AdminController@doTestCreate', ['auth', 'admin']]);

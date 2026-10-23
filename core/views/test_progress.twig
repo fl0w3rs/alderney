@@ -60,31 +60,6 @@
     </div>
 
 </div>
-{# {% elseif test.status == 2 %}
-<div class="text-center">
-    <div class="fw-bold h4 text-success">Тест пройден</div>
-    <div class="mt-1 d-flex flex-column">
-        Правильных ответов: {{test.valid_answers}} из {{test.total_questions}}<br />
-        Набрано {{(test.valid_answers/test.total_questions*100)|round(1, 'floor')}}% при проходном
-        {{test_real.pass_percent}}%
-
-        <div class="text-center mt-3"><a href="{{config['base_link']}}/home"><button
-                    class="btn btn-success btn-sm">Хорошо</button></a></div>
-    </div>
-</div>
-{% elseif test.status == 3 %}
-<div class="text-center">
-    <div class="fw-bold h4 text-danger">Тест провален</div>
-    <div class="mt-1 d-flex flex-column">
-        Правильных ответов: {{test.valid_answers}} из {{test.total_questions}}<br />
-        Набрано {{(test.valid_answers/test.total_questions*100)|round(1, 'floor')}}% при проходном
-        {{test_real.pass_percent}}%
-
-        <div class="text-center mt-3"><a href="{{config['base_link']}}/home"><button
-                    class="btn btn-danger btn-sm">Хорошо</button></a></div>
-    </div>
-</div>
-{% endif %} #}
 {% else %}<div class="text-center">
     <div class="fw-bold h4 text-warning">Тест пройден</div>
     <div class="mt-1 d-flex flex-column">

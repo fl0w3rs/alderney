@@ -38,8 +38,6 @@ class TestController extends BaseController {
 
         $this->params['question'] = R::getRow('SELECT * FROM questions WHERE id = ?', [$question_id]);
 
-        // $this->params['question']['text'] = htmlspecialchars_decode
-
         return responseJson(['status' => 'success', 'test_status' => $this->params['test']['status'], 'content' => $this->render('test_progress.twig')]);
     }
 
@@ -67,14 +65,6 @@ class TestController extends BaseController {
             }
             return $this->renderTest($test['id']);
         }
-
-        // if(time() - (int)$test['last_keepalive'] > 5) {
-        //     $embed = Test::generateEmbed($test, $tmp_test);
-
-        //     Discord::sendMessage('Не отправлен keepalive запрос (возможно закрыл страницу обходным способом/пропал интернет) (' . $result_link . ')', $embed);
-        //     Test::updateCurrentTestStatus(-1, 'Не отправлен KA запрос');
-        //     return $this->renderTest($test['id']);
-        // }
 
         $questions = explode(',', $test['questions']);
         $question_id = $questions[(int)$test['current_question']];
@@ -183,15 +173,8 @@ class TestController extends BaseController {
             return $this->renderTest($test['id']);
         }
 
-        // if(time() - (int)$test['last_keepalive'] > 5) {
-        //     Discord::sendMessage('Не отправлен keepalive запрос (возможно закрыл страницу обходным способом/пропал интернет) (' . $result_link . ')', $embed);
-        //     Test::updateCurrentTestStatus(-1, 'Не отправлен KA запрос');
-        //     return $this->renderTest($test['id']);
-        // }
-
         if(@$_POST['hidden'] == true) {
             Discord::sendMessage('Закрыл страницу (' . $result_link . ')', $embed);
-            // Test::updateCurrentTestStatus(-1, 'Страница закрыта');
             Test::calcResult($test['id']);
             Test::updateEndTime($test['id']);
             return $this->renderTest($test['id']);
