@@ -6,11 +6,19 @@
 
 ## Скриншоты
 
+### Участник
+
 | | |
 |---|---|
 | ![Вход](docs/screenshots/01-login.png) Вход через форум | ![Тесты](docs/screenshots/02-home.png) Доступные тесты |
-| ![Результаты](docs/screenshots/04-results.png) Результаты участников | ![Разбор](docs/screenshots/05-result-review.png) Разбор ответов |
+
+### Админка
+
+| | |
+|---|---|
+| ![Тесты](docs/screenshots/08-tests.png) Список тестов | ![Вопросы](docs/screenshots/09-questions.png) Вопросы теста |
 | ![Тест](docs/screenshots/06-test-edit.png) Настройки теста | ![Вопрос](docs/screenshots/07-question-edit.png) Редактор вопроса |
+| ![Результаты](docs/screenshots/04-results.png) Результаты участников | ![Разбор](docs/screenshots/05-result-review.png) Разбор ответов с ручной проверкой |
 
 ## Возможности
 
