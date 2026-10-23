@@ -82,7 +82,8 @@ class TestController extends BaseController {
         $validator = new Validator;
 
         $validation = $validator->make($_POST, [
-            'answer' => 'required|' . $input_type
+            'answer' => 'required|' . $input_type,
+            'answer.*' => 'integer'
         ]);
 
         $validation->setAliases([
@@ -91,7 +92,7 @@ class TestController extends BaseController {
 
         $validation->validate();
 
-        if ($validation->fails()) {
+        if ($validation->fails() || ($question['type'] == 3 && !is_string($_POST['answer']))) {
             return false;
         }
 
@@ -100,7 +101,7 @@ class TestController extends BaseController {
         $answer->question_id = $question['id'];
         if($question['type'] == 1) {
             $answer->answers = (int)$_POST['answer'];
-            if($_POST['answer'] == $question['answers']) {
+            if((int)$_POST['answer'] === (int)$question['answers']) {
                 $answer->is_valid = true;
             } else {
                 $answer->is_valid = false;
