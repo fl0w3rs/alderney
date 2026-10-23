@@ -37,11 +37,9 @@
         --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
       }
       &:disabled {
-        // --b: var(--disabled);
         cursor: not-allowed;
         opacity: .9;
         &:checked {
-          // --b: var(--disabled-inner);
           --bc: var(--border);
         }
         & + label {
@@ -140,7 +138,6 @@
     padding: 0;
     list-style: none;
     width: 100%;
-    // max-width: 320px;
     li {
       margin: 16px 0;
       position: relative;

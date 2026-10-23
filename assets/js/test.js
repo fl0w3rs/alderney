@@ -61,7 +61,6 @@ window.submitAnswer = () => {
             toast.error('Произошла непредвиденная ошибка')
             console.error(response)
         }
-        // console.log(response); console.log(response.data.admin)
     })
 }
 

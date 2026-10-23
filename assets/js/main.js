@@ -5,8 +5,6 @@ window.axios = axios.create({
 });
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-//
-
 import { createToastInterface } from "vue-toastification";
 
 const pluginOptions = {
@@ -15,9 +13,6 @@ const pluginOptions = {
 
 window.toast = createToastInterface(pluginOptions);
 
-
-
-//
 (function ($) {
   $.fn.customSerialize = function () {
     var arr = {};
