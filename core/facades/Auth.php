@@ -6,7 +6,7 @@ use \RedBeanPHP\R as R;
 
 class Auth {
     public static function getForumSession() {
-        if(isset($_COOKIE['ips4_login_key'])) {
+        if(isset($_COOKIE['ips4_login_key']) && is_string($_COOKIE['ips4_login_key']) && $_COOKIE['ips4_login_key'] !== '') {
             R::selectDatabase('forum');
             $row = R::getRow('SELECT * FROM core_members_known_devices WHERE login_key = ?', [$_COOKIE['ips4_login_key']]);
 
