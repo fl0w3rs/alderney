@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 window.axios = axios.create({
-  baseURL: 'https://lostforum.fl0w3rs.dev/alderney/'
+  baseURL: window.base_link + '/'
 });
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -14,8 +14,6 @@ const pluginOptions = {
 };
 
 window.toast = createToastInterface(pluginOptions);
-
-window.base_link = 'https://lostforum.fl0w3rs.dev/alderney';
 
 
 

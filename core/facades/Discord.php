@@ -24,6 +24,8 @@ class Discord {
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 
 
+        if (config['webhook'] === '') return;
+
         $ch = curl_init( config['webhook'] );
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
         curl_setopt( $ch, CURLOPT_POST, 1);

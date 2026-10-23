@@ -4,3 +4,6 @@
 /vendor
 /yarn.lock
 /public/dist/*
+/public/mix-manifest.json
+/cache
+/.vscode
