@@ -1,10 +1,11 @@
 <?php
+require __DIR__ . '/config.php';
+
 error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+ini_set('display_errors', config['dev_mode'] ? 'On' : 'Off');
 
 require __DIR__ . '/../vendor/autoload.php';
 
-require __DIR__ . '/config.php';
 require __DIR__ . '/database.php';
 
 function responseJson(array $arr) {
