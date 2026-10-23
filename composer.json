@@ -1,17 +1,10 @@
 {
     "name": "fl0w3rs/alderney",
     "type": "project",
-
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/fl0w3rs/validation"
-        }
-    ],
     "require": {
-        "gabordemooij/redbean": "dev-master",
+        "gabordemooij/redbean": "^5.7",
         "twig/twig": "^3.0",
-        "rakit/validation": "dev-fl0w3rs-ru",
+        "rakit/validation": "^1.4",
         "nikic/fast-route": "^1.3"
     },
     "autoload": {
