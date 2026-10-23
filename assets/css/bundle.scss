@@ -39,6 +39,10 @@
     color: #fbfbfb!important;
 }
 
-a {
-
+.btn.btn-link.link-inline {
+    text-transform: none;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: normal;
 }
