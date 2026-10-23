@@ -1,27 +1,31 @@
 {
-  "name": "mpucp",
+  "name": "alderney",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "laravel-mix": "^5.0.9",
-    "resolve-url-loader": "3.1.0",
-    "sass": "^1.30.0",
-    "sass-loader": "8.*",
-    "vue-template-compiler": "^2.6.12"
+    "laravel-mix": "^6.0.49",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.77.0",
+    "sass-loader": "^12.6.0"
   },
   "scripts": {
-    "dev": "npm run development",
-    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "npm run development -- --watch",
-    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "dev": "mix --no-progress",
+    "watch": "mix watch --no-progress",
+    "prod": "mix --production --no-progress",
+    "production": "mix --production --no-progress"
   },
   "dependencies": {
-    "axios": "^0.21.0",
-    "clipboard": "^2.0.6",
-    "vue": "^2.6.11",
-    "vue-toastification": "^1.7.8"
+    "axios": "^0.21.4",
+    "clipboard": "^2.0.11",
+    "vue": "^2.7.16",
+    "vue-toastification": "^1.7.14"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "resolutions": {
+    "webpack": "5.97.1"
   }
 }
