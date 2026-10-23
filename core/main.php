@@ -13,13 +13,8 @@ function responseJson(array $arr) {
     return json_encode($arr, JSON_UNESCAPED_UNICODE);
 }
 
-function isJson($string) {
-    json_decode($string);
-    return (json_last_error() == JSON_ERROR_NONE);
-}
-
-$input = file_get_contents("php://input");
-if(!empty($input) && isJson($input)) {
-    $_POST = array_merge($_POST, json_decode($input, true));
+$input = json_decode(file_get_contents("php://input"), true);
+if(is_array($input)) {
+    $_POST = array_merge($_POST, $input);
 
 }
