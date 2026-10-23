@@ -16,5 +16,4 @@ function responseJson(array $arr) {
 $input = json_decode(file_get_contents("php://input"), true);
 if(is_array($input)) {
     $_POST = array_merge($_POST, $input);
-
 }

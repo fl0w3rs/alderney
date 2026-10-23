@@ -42,6 +42,23 @@ $dispatcher = FastRoute\cachedDispatcher(function(FastRoute\RouteCollector $r) {
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 
+// Reject cross-site POST requests (CSRF): the request must come from this site.
+if ($httpMethod === 'POST') {
+    $source = $_SERVER['HTTP_ORIGIN'] ?? $_SERVER['HTTP_REFERER'] ?? '';
+    $origin = function ($url) {
+        $parts = parse_url($url);
+        return ($parts['scheme'] ?? '') . '://' . ($parts['host'] ?? '') . (isset($parts['port']) ? ':' . $parts['port'] : '');
+    };
+
+    if ($origin($source) !== $origin(config['base_link'])) {
+        http_response_code(403);
+        $errc = new App\Controllers\ErrorController();
+        echo $errc->renderError('CSRF', 'Запрос отклонён');
+
+        return;
+    }
+}
+
 $_SERVER['REQUEST_URI'] = substr($_SERVER['REQUEST_URI'], (strlen('/alderney')));
 $uri = $_SERVER['REQUEST_URI'];
 
