@@ -28,8 +28,9 @@
                         </div>
                         <div class="col-5 text-end">
                             <a href="{{config['base_link']}}/admin/question/{{v.id}}" class="mx-1">редактировать</a>
-                            <a href="{{config['base_link']}}/api/admin/question/{{v.id}}/delete"
-                                class="mx-1">удалить</a>
+                            <form method="post" action="{{config['base_link']}}/api/admin/question/{{v.id}}/delete" class="d-inline">
+                                <button type="submit" class="btn btn-link p-0 mx-1 align-baseline">удалить</button>
+                            </form>
                         </div>
                     </div>
                 </div>

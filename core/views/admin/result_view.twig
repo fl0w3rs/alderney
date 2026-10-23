@@ -33,9 +33,9 @@
                                 проходном {{test.pass_percent}}%
                             </small>
                         </div>
-                        {% if result.status != 1 and result.retest == 0 %}<a class="my-2"
-                            href="{{config['base_link']}}/api/admin/result/{{result.id}}/retest"><button
-                                class="btn btn-danger btn-sm">Выдать возможность перепройти</button></a>{% endif %}
+                        {% if result.status != 1 and result.retest == 0 %}<form class="my-2" method="post"
+                            action="{{config['base_link']}}/api/admin/result/{{result.id}}/retest"><button
+                                type="submit" class="btn btn-danger btn-sm">Выдать возможность перепройти</button></form>{% endif %}
 
                     </div>
 
