@@ -57,3 +57,7 @@ assets/                style and JS sources (built into public/dist)
    yarn production
    ```
 4. Serve `public/` with Apache and `mod_rewrite` at `/alderney`. `RewriteBase` in `public/.htaccess` must match that path.
+
+## A note on old credentials
+
+The first commit contains database credentials, a Discord webhook and FTP credentials from the original deployment. They are long out of date and no longer work, so there is no need to report them. The current code keeps only placeholders in `core/config.php`.
