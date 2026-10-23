@@ -71,35 +71,10 @@ class AdminController extends BaseController {
             return $errc->renderError('INVTEST', 'Результат не существует');
         }
 
-        $validator = new Validator;
-
-        $validation = $validator->make($_POST, [
-            'test_name' => 'required|min:3|max:32',
-            'test_time' => 'required|integer|min:1',
-            'test_question_count' => 'required|integer|min:1',
-            'test_pass_percent' => 'required|integer|min:0|max:100',
-            'test_groups' => 'required|array',
-            'test_groups.*' => 'integer',
-            'test_is_open' => 'required|boolean'
-        ]);
-
-        $validation->setAliases([
-            'test_name' => 'Название',
-            'test_time' => 'Время на прохождение',
-            'test_question_count' => 'Отображаемое количество вопросов',
-            'test_pass_percent' => 'Проходной процент',
-            'test_groups' => 'Доступ по группе',
-            'test_groups.*' => 'Доступ по группе',
-            'test_is_open' => 'Открыт'
-        ]);
-
-        $validation->validate();
-
-        if ($validation->fails()) {
-            $errors = $validation->errors()->firstOfAll();
-
+        $error = $this->validateTest();
+        if ($error !== null) {
             $errc = new ErrorController();
-            return $errc->renderError('VALIDERROR', implode('\n', $errors));
+            return $errc->renderError('VALIDERROR', $error);
         }
 
         $test->name = $_POST['test_name'];
@@ -116,6 +91,26 @@ class AdminController extends BaseController {
     public function doTestCreate() {
         R::selectDatabase('main');
 
+        $error = $this->validateTest();
+        if ($error !== null) {
+            $errc = new ErrorController();
+            return $errc->renderError('VALIDERROR', $error);
+        }
+
+        $test = R::dispense('tests');
+        $test->name = $_POST['test_name'];
+        $test->time = $_POST['test_time'];
+        $test->question_count = $_POST['test_question_count'];
+        $test->pass_percent = $_POST['test_pass_percent'];
+        $test->groups = implode(',', $_POST['test_groups']);
+        $test->groups = implode(',', $_POST['test_groups']);
+        $test->is_open = (bool)$_POST['test_is_open'];
+        R::store($test);
+
+        return responseJson(['status' => 'success']);
+    }
+
+    private function validateTest(): ?string {
         $validator = new Validator;
 
         $validation = $validator->make($_POST, [
@@ -141,23 +136,10 @@ class AdminController extends BaseController {
         $validation->validate();
 
         if ($validation->fails()) {
-            $errors = $validation->errors()->firstOfAll();
-
-            $errc = new ErrorController();
-            return $errc->renderError('VALIDERROR', implode('\n', $errors));
+            return implode("\n", $validation->errors()->firstOfAll());
         }
 
-        $test = R::dispense('tests');
-        $test->name = $_POST['test_name'];
-        $test->time = $_POST['test_time'];
-        $test->question_count = $_POST['test_question_count'];
-        $test->pass_percent = $_POST['test_pass_percent'];
-        $test->groups = implode(',', $_POST['test_groups']);
-        $test->groups = implode(',', $_POST['test_groups']);
-        $test->is_open = (bool)$_POST['test_is_open'];
-        R::store($test);
-
-        return responseJson(['status' => 'success']);
+        return null;
     }
 
     public function renderResultList() {
@@ -274,29 +256,10 @@ class AdminController extends BaseController {
     public function doQuestionEdit($params) {
         R::selectDatabase('main');
 
-        $validator = new Validator;
-
-        $validation = $validator->make($_POST, [
-            'question_text' => 'required|min:3|max:256',
-            'question_type' => 'required|integer|in:1,2,3',
-            'options' => 'required|array|min:1|max:10',
-            'question_answers' => 'required|min:1|max:32'
-        ]);
-
-        $validation->setAliases([
-            'question_text' => 'Текст',
-            'question_type' => 'Тип вопроса',
-            'options' => 'Варианты ответа',
-            'question_answers' => 'Правильные ответы'
-        ]);
-
-        $validation->validate();
-
-        if ($validation->fails()) {
-            $errors = $validation->errors()->firstOfAll();
-
+        $error = $this->validateQuestion();
+        if ($error !== null) {
             $errc = new ErrorController();
-            return $errc->renderError('VALIDERROR', implode('\n', $errors));
+            return $errc->renderError('VALIDERROR', $error);
         }
 
         foreach($_POST['options'] as $k => &$v) {
@@ -328,29 +291,10 @@ class AdminController extends BaseController {
     public function doQuestionCreate($params) {
         R::selectDatabase('main');
 
-        $validator = new Validator;
-
-        $validation = $validator->make($_POST, [
-            'question_text' => 'required|min:3|max:256',
-            'question_type' => 'required|integer|in:1,2,3',
-            'options' => 'required|array|min:1|max:10',
-            'question_answers' => 'required|min:1|max:32'
-        ]);
-
-        $validation->setAliases([
-            'question_text' => 'Текст',
-            'question_type' => 'Тип вопроса',
-            'options' => 'Варианты ответа',
-            'question_answers' => 'Правильные ответы'
-        ]);
-
-        $validation->validate();
-
-        if ($validation->fails()) {
-            $errors = $validation->errors()->firstOfAll();
-
+        $error = $this->validateQuestion();
+        if ($error !== null) {
             $errc = new ErrorController();
-            return $errc->renderError('VALIDERROR', implode('\n', $errors));
+            return $errc->renderError('VALIDERROR', $error);
         }
 
         foreach($_POST['options'] as $k => &$v) {
@@ -381,6 +325,32 @@ class AdminController extends BaseController {
         return responseJson(['status' => 'success']);
     }
 
+    private function validateQuestion(): ?string {
+        $validator = new Validator;
+
+        $validation = $validator->make($_POST, [
+            'question_text' => 'required|min:3|max:256',
+            'question_type' => 'required|integer|in:1,2,3',
+            'options' => 'required|array|min:1|max:10',
+            'question_answers' => 'required|min:1|max:32'
+        ]);
+
+        $validation->setAliases([
+            'question_text' => 'Текст',
+            'question_type' => 'Тип вопроса',
+            'options' => 'Варианты ответа',
+            'question_answers' => 'Правильные ответы'
+        ]);
+
+        $validation->validate();
+
+        if ($validation->fails()) {
+            return implode("\n", $validation->errors()->firstOfAll());
+        }
+
+        return null;
+    }
+
     public function doChangeAnswerIsValid() {
         $validator = new Validator;
 
@@ -395,7 +365,7 @@ class AdminController extends BaseController {
             $errors = $validation->errors()->firstOfAll();
 
             $errc = new ErrorController();
-            return $errc->renderError('VALIDERROR', implode('\n', $errors));
+            return $errc->renderError('VALIDERROR', implode("\n", $errors));
         }
 
         R::selectDatabase('main');
